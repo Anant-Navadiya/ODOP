@@ -1,12 +1,12 @@
 import uuid
 from django.db import models
 from argon2 import PasswordHasher
-
+from django.contrib.auth.password_validation import validate_password
 
 class BaseModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, unique=True, editable=False)
 
-    time_stamp = models.DateTimeField(auto_now=True, blank=True)
+    time_stamp = models.DateTimeField(auto_now_add=True, blank=True)
 
     class Meta:
         abstract = True
@@ -18,15 +18,15 @@ class Customer(BaseModel):
     first_name = models.CharField(max_length=128)
     last_name = models.CharField(max_length=128)
 
-    email = models.EmailField(max_length=128, unique=True,blank=True,default = None)
-    email_verified_at = models.DateTimeField(auto_now_add=True, blank=True)
+    email = models.CharField(max_length=128,unique=True,default = None,null=True)
+    email_verified_at = models.DateTimeField(auto_now=True, blank=True)
 
-    mobile_number = models.IntegerField(unique=True, blank=True,default = None)
-    mobile_number_verified_at = models.DateTimeField(auto_now_add=True, blank=True)
+    mobile_number = models.CharField(max_length=10,unique=True,default = None, null=True)
+    mobile_number_verified_at = models.DateTimeField(auto_now=True, blank=True)
 
     avatar = models.CharField(max_length=128, blank=True)
 
-    password = models.CharField(max_length=128)
+    password = models.CharField(max_length=128,validators=[validate_password])
 
     class Meta:
         ordering = ["-time_stamp"]
