@@ -24,7 +24,7 @@
     }
 
     .logo-box {
-        //@apply lg:hidden md:flex;
+        @apply lg:hidden md:flex;
 
         .logo-lg {
             @apply lg:block hidden;

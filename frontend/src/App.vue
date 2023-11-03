@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { RouterLink, RouterView } from "vue-router";
-import { useLayoutStore } from "@/stores/layout";
+import { useLayoutStore } from "./stores/layout";
 
 export default {
   mounted() {

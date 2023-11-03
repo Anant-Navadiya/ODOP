@@ -3,20 +3,10 @@ import uuid
 from django.db import models
 from argon2 import PasswordHasher
 from django.contrib.auth.password_validation import validate_password
-from django.utils import timezone
 
 
-class BaseModel(models.Model):
+class Customer(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, unique=True, editable=False)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        abstract = True
-
-
-class Customer(BaseModel):
     is_active = models.BooleanField(default=True)
 
     first_name = models.CharField(max_length=128)
